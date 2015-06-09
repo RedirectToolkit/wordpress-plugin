@@ -11,19 +11,31 @@ defined('ABSPATH') or die('Plugin file cannot be accessed directly.');
  */
 function rdir_shortlink_generator($url)
 {
-    $api = sprintf(
-        'http://rdir.io/tmp_api/new?url=%s&tags=%s&api_key=%s',
-        urlencode($url),
-        urlencode(get_option('rdir_global_tags')),
-        urlencode(get_option('rdir_api_key'))
-    );
-    $response = wp_remote_get($api);
+    $handler = curl_init();
+    curl_setopt($handler, CURLOPT_HEADER, false);
+    curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($handler, CURLOPT_URL, 'http://api.rdir.io/links');
+    curl_setopt($handler, CURLOPT_POST, true);
+    curl_setopt($handler, CURLOPT_HTTPHEADER, array(
+        'X-Authorization: '.get_option('rdir_api_key'),
+    ));
+    curl_setopt($handler, CURLOPT_POSTFIELDS, array(
+        'link' => array(
+            'url' => $url,
+            'host' => 'rdir.io',
+            'settings' => array(
+                'tags' => get_option('rdir_global_tags'),
+            ),
+        ),
+    ));
+    $response = curl_exec($handler);
+    curl_close($handler);
 
-    if (!$response || !is_array($response) || $response['response']['code'] != 200 || $response['body'] == '') {
+    if (!$response) {
         return false;
     }
 
-    $json = json_decode($response['body']);
+    $json = json_decode($response);
     if (!$json || $json->ok != true || is_string($json->output)) {
         return false;
     }
