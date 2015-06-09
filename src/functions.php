@@ -32,7 +32,7 @@ function rdir_shortlink_generator($url)
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_URL => 'http://api.rdir.io/links',
     ));
-    $response = @curl_exec($handler);
+    $response = curl_exec($handler);
     curl_close($handler);
 
     if (!$response) {
