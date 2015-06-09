@@ -12,22 +12,24 @@ defined('ABSPATH') or die('Plugin file cannot be accessed directly.');
 function rdir_shortlink_generator($url)
 {
     $handler = curl_init();
-    curl_setopt($handler, CURLOPT_HEADER, false);
-    curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($handler, CURLOPT_URL, 'http://api.rdir.io/links');
-    curl_setopt($handler, CURLOPT_POST, true);
-    curl_setopt($handler, CURLOPT_HTTPHEADER, array(
-        'X-Authorization: '.get_option('rdir_api_key'),
-    ));
-    curl_setopt($handler, CURLOPT_POSTFIELDS, http_build_query(array(
-        'link' => array(
-            'url' => $url,
-            'host' => 'rdir.io',
-            'settings' => array(
-                'tags' => get_option('rdir_global_tags'),
-            ),
+    curl_setopt_array($handler, array(
+        CURLOPT_HEADER => false,
+        CURLOPT_HTTPHEADER => array(
+            'X-Authorization: '.get_option('rdir_api_key'),
         ),
-    )));
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => http_build_query(array(
+            'link' => array(
+                'url' => $url,
+                'host' => 'rdir.io',
+                'settings' => array(
+                    'tags' => get_option('rdir_global_tags'),
+                ),
+            ),
+        )),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_URL => 'http://api.rdir.io/links',
+    ));
     $response = @curl_exec($handler);
     curl_close($handler);
 
