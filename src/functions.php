@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or die('Plugin file cannot be accessed directly.');
+// defined('ABSPATH') or die('Plugin file cannot be accessed directly.');
 
 /**
  * Rdir.io short link generation.
@@ -38,9 +38,9 @@ function rdir_shortlink_generator($url)
     }
 
     $json = json_decode($response);
-    if (!$json || $json->ok != true || is_string($json->output)) {
+    if (!$json || !$json->host || !$json->slug) {
         return false;
     }
 
-    return $json->output;
+    return sprintf('http://%s/%s', $json->host, $json->slug);
 }

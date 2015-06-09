@@ -1,4 +1,4 @@
-<?php defined('ABSPATH') or die('Plugin file cannot be accessed directly.'); ?>
+<?php /* defined('ABSPATH') or die('Plugin file cannot be accessed directly.'); */ ?>
 
 <div class="wrap">
     <h2>
