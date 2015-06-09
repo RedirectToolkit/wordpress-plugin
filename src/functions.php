@@ -13,6 +13,8 @@ function rdir_shortlink_generator($url)
 {
     $handler = curl_init();
     curl_setopt_array($handler, array(
+        CURLINFO_HEADER_OUT => false,
+        CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HEADER => false,
         CURLOPT_HTTPHEADER => array(
             'X-Authorization: '.get_option('rdir_api_key'),
@@ -37,10 +39,10 @@ function rdir_shortlink_generator($url)
         return false;
     }
 
-    $json = json_decode($response);
-    if (!$json || !$json->host || !$json->slug) {
+    $data = json_decode($response, true);
+    if (!isset($data['host']) || !isset($data['slug'])) {
         return false;
     }
 
-    return sprintf('http://%s/%s', $json->host, $json->slug);
+    return sprintf('http://%s/%s', $data['host'], $data['slug']);
 }
