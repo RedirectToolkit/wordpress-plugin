@@ -19,7 +19,7 @@ function rdir_shortlink_generator($url)
     curl_setopt($handler, CURLOPT_HTTPHEADER, array(
         'X-Authorization: '.get_option('rdir_api_key'),
     ));
-    curl_setopt($handler, CURLOPT_POSTFIELDS, array(
+    curl_setopt($handler, CURLOPT_POSTFIELDS, http_build_query(array(
         'link' => array(
             'url' => $url,
             'host' => 'rdir.io',
@@ -27,8 +27,8 @@ function rdir_shortlink_generator($url)
                 'tags' => get_option('rdir_global_tags'),
             ),
         ),
-    ));
-    $response = curl_exec($handler);
+    )));
+    $response = @curl_exec($handler);
     curl_close($handler);
 
     if (!$response) {

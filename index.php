@@ -27,7 +27,7 @@ add_filter('pre_get_shortlink', function ($post_id) {
         return $shortlink;
     }
 
-    require_once __DIR__.'/src/settings.php';
+    require_once __DIR__.'/src/functions.php';
     $rdir_shortlink = rdir_shortlink_generator($post->guid);
 
     if (false === $rdir_shortlink) {
