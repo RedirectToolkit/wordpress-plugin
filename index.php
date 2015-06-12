@@ -12,8 +12,6 @@ Version: 0.0.1
 Author URI: http://rdir.io/
 */
 
-// defined('ABSPATH') or die('Plugin file cannot be accessed directly.');
-
 add_filter('pre_get_shortlink', function ($post_id) {
     $post = get_post($post_id);
 

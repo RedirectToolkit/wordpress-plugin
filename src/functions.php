@@ -1,7 +1,5 @@
 <?php
 
-// defined('ABSPATH') or die('Plugin file cannot be accessed directly.');
-
 /**
  * Rdir.io short link generation.
  *

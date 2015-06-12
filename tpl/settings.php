@@ -1,8 +1,6 @@
-<?php /* defined('ABSPATH') or die('Plugin file cannot be accessed directly.'); */ ?>
-
 <div class="wrap">
     <h2>
-        <img src="http://rdir.io/favicon.ico" style="width:25px;height:25px;position:relative;bottom:-5px" />
+        <img src="<?php echo plugin_dir_url(dirname(__FILE__)); ?>assets/favicon.ico" class="favicon" />
         Redirect Toolkit
     </h2>
 
@@ -28,3 +26,13 @@
 
     </form>
 </div>
+
+<style>
+img.favicon
+{
+    width:25px;
+    height:25px;
+    position:relative;
+    bottom:-5px
+}
+</style>
