@@ -21,7 +21,7 @@ function rdir_shortlink_generator($url)
         CURLOPT_POSTFIELDS => http_build_query(array(
             'link' => array(
                 'url' => $url,
-                'host' => 'rdir.io',
+                'host' => get_option('rdir_global_host') ?: 'rdir.io',
                 'settings' => array(
                     'tags' => get_option('rdir_global_tags'),
                 ),
@@ -38,9 +38,9 @@ function rdir_shortlink_generator($url)
     }
 
     $data = json_decode($response, true);
-    if (!isset($data['host']) || !isset($data['slug'])) {
+    if (!isset($data['shortlink'])) {
         return false;
     }
 
-    return sprintf('http://%s/%s', $data['host'], $data['slug']);
+    return $data['shortlink'];
 }

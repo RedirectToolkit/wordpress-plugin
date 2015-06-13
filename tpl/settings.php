@@ -20,6 +20,12 @@
                     <input name="rdir_global_tags" value="<?= esc_attr(get_option('rdir_global_tags')); ?>" />
                 </td>
             </tr>
+            <tr valign="top">
+                <th scope="row">Predefined Host</th>
+                <td>
+                    <input name="rdir_global_host" value="<?= esc_attr(get_option('rdir_global_host') ?: 'rdir.io'); ?>" />
+                </td>
+            </tr>
         </table>
 
         <?php submit_button(); ?>

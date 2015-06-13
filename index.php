@@ -21,7 +21,7 @@ add_filter('pre_get_shortlink', function ($post_id) {
 
     $shortlink = get_post_meta($post->ID, 'rdir_shortlink', true);
 
-    if (is_string($shortlink) && 'rdir.io' == parse_url($shortlink, PHP_URL_HOST)) {
+    if ($shortlink && is_string($shortlink)) {
         return $shortlink;
     }
 
@@ -52,5 +52,6 @@ add_action('admin_menu', function () {
         // register our settings
         register_setting('rdir-settings-group', 'rdir_api_key');
         register_setting('rdir-settings-group', 'rdir_global_tags');
+        register_setting('rdir-settings-group', 'rdir_global_host');
     });
 });
