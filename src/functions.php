@@ -15,6 +15,7 @@ function rdir_shortlink_generator($url)
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HEADER => false,
         CURLOPT_HTTPHEADER => array(
+            'Accept: application/json',
             'X-Authorization: '.get_option('rdir_api_key'),
         ),
         CURLOPT_POST => true,
