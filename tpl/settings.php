@@ -15,7 +15,7 @@
             <tr valign="top">
                 <th scope="row">API key</th>
                 <td>
-                    <input class="regular-text" name="rdir_api_key" value="<?php echo esc_attr(get_option('rdir_api_key')); ?>" <?php if (!get_option('rdir_api_key')) echo 'autofocus required'; ?> />
+                    <input class="regular-text" name="rdir_api_key" value="<?php echo esc_attr(get_option('rdir_api_key')); ?>" <?php if (!get_option('rdir_api_key')) echo 'autofocus'; ?> />
                     <p class="description"><b>Required</b>. API key used by this blog, visit <a href="http://rdir.io/profile/" target="_blank">your profile page</a> to obtain it.</p>
                 </td>
             </tr>
