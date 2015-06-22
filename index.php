@@ -1,45 +1,20 @@
 <?php
 /**
  * @package Redirect Toolkit
- * @version 0.0.1
+ * @version 0.1.0
  */
 /*
 Plugin Name: Redirect Toolkit
 Plugin URI: https://github.com/RedirectToolkit/wordpress-plugin
 Description: This plugin allows you to create automatically short link for posts and pages using rdir.io.
 Author: Redirect Toolkit
-Version: 0.0.1
+Version: 0.1.0
 Author URI: http://rdir.io/
 */
 
-add_filter('pre_get_shortlink', function ($post_id) {
-    $post = get_post($post_id);
-
-    if (!$post->ID) {
-        return false;
-    }
-
-    $shortlink = get_post_meta($post->ID, 'rdir_shortlink', true);
-
-    if ($shortlink && is_string($shortlink)) {
-        return $shortlink;
-    }
-
-    require_once __DIR__.'/src/functions.php';
-    $rdir_shortlink = rdir_shortlink_generator($post->guid);
-
-    if (false === $rdir_shortlink) {
-        return $shortlink ?: false;
-    }
-
-    $shortlink = $rdir_shortlink;
-
-    if (!add_post_meta($post->ID, 'rdir_shortlink', $shortlink, true)) {
-        update_post_meta($post->ID, 'rdir_shortlink', $shortlink);
-    }
-
-    return $shortlink;
-});
+foreach (glob(__DIR__.'/src/*.php') as $source) {
+    require_once $source;
+}
 
 // create custom plugin settings menu
 add_action('admin_menu', function () {
@@ -53,5 +28,7 @@ add_action('admin_menu', function () {
         register_setting('rdir-settings-group', 'rdir_api_key');
         register_setting('rdir-settings-group', 'rdir_global_tags');
         register_setting('rdir-settings-group', 'rdir_global_host');
+        register_setting('rdir-settings-group', 'rdir_predefined_callback');
+        register_setting('rdir-settings-group', 'rdir_use_slugs');
     });
 });
