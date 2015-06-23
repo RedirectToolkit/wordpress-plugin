@@ -26,9 +26,11 @@ add_action('admin_menu', function () {
     add_action('admin_init', function () {
         // register our settings
         register_setting('rdir-settings-group', 'rdir_api_key');
-        register_setting('rdir-settings-group', 'rdir_global_tags');
+        register_setting('rdir-settings-group', 'rdir_dont_replace_permalinks');
         register_setting('rdir-settings-group', 'rdir_global_host');
+        register_setting('rdir-settings-group', 'rdir_global_tags');
         register_setting('rdir-settings-group', 'rdir_predefined_callback');
+        register_setting('rdir-settings-group', 'rdir_replace_canonical');
         register_setting('rdir-settings-group', 'rdir_use_slugs');
     });
 });

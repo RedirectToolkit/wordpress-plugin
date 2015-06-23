@@ -39,3 +39,37 @@ add_action('admin_notices', function () {
         require_once __DIR__.'/../tpl/admin_notice.php';
     }
 });
+
+// this is slightly modified from the original
+// rel_canonical function in /wp-includes/link-template.php
+if (get_option('rdir_replace_canonical')) {
+    remove_action('wp_head', 'rel_canonical');
+    add_action('wp_head', function () {
+        // original code
+        if (!is_singular()) {
+            return;
+        }
+
+        global $wp_the_query;
+        if (!$id = $wp_the_query->get_queried_object_id()) {
+            return;
+        }
+
+        // new code - if there is a meta property defined
+        // use that as the canonical url
+        $canonical = get_post_meta($id, 'rdir_shortlink', true);
+        if ($canonical) {
+            echo "<link rel='canonical' href='".$canonical."' />\n";
+
+            return;
+        }
+
+        // original code
+        $link = get_permalink($id);
+        if ($page = get_query_var('cpage')) {
+            $link = get_comments_pagenum_link($page);
+        }
+
+        echo "<link rel='canonical' href='".$link."' />\n";
+    });
+}

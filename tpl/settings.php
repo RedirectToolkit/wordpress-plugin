@@ -59,6 +59,24 @@
                     <p class="description">This URL will be called by rdir.io on every short link visit.</p>
                 </td>
             </tr>
+            <tr valign="top">
+                <th scope="row">Replace permalinks</th>
+                <td>
+                    <select name="rdir_dont_replace_permalinks">
+                        <option value="0"<?php if (!get_option('rdir_dont_replace_permalinks')) echo ' selected'; ?>>Enabled</option>
+                        <option value="1"<?php if (get_option('rdir_dont_replace_permalinks')) echo ' selected'; ?>>Disabled</option>
+                    </select>
+                    <p class="description">This option will try to force shortlinks usage by users when they share contents from your blog.</p>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Replace canonical</th>
+                <td>
+                    <select name="rdir_replace_canonical">
+                        <option value="0"<?php if (!get_option('rdir_replace_canonical')) echo ' selected'; ?>>Disabled</option>
+                        <option value="1"<?php if (get_option('rdir_replace_canonical')) echo ' selected'; ?>>Enabled</option>
+                    </select>
+                    <p class="description">The same of "Replace permalinks" but stronger.</p>
                 </td>
             </tr>
         </table>

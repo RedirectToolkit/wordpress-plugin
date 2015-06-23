@@ -48,3 +48,15 @@ add_filter('pre_get_shortlink', function ($post_id) {
 
     return $shortlink;
 });
+
+if (!get_option('rdir_dont_replace_permalinks')) {
+    add_filter('the_permalink', function ($url) {
+        $postId = url_to_postid($url);
+
+        return get_post_meta($postId, 'rdir_shortlink', true) ?: $url;
+    });
+}
+
+add_filter('sharing_permalink', function ($url, $post_id) {
+    return get_post_meta($post_id, 'rdir_shortlink', true) ?: $url;
+}, 10, 2);
