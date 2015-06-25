@@ -3,7 +3,7 @@
 add_filter('pre_get_shortlink', function ($post_id) {
     $post = get_post($post_id);
 
-    if (!$post->ID || !in_array($post->post_status, ['publish', 'private'])) {
+    if (!$post->ID || !in_array($post->post_status, array('publish', 'private'))) {
         return false;
     }
 
