@@ -1,0 +1,21 @@
+{
+    "name": "rdir/wordpress-plugin",
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RdirTest\\Wordpress\\Plugin\\": "tests"
+        }
+    },
+    "autoload": {
+        "classmap": [
+            "src/Punycode.php",
+            "src/action.php",
+            "src/functions.php",
+            "src/meta_box.php",
+            "src/filter.php",
+            "index.php"
+        ]
+    }
+}
